@@ -35,9 +35,6 @@ name: CI, Release, and Stage Sync
 on:
   workflow_dispatch:
   workflow_call:
-    secrets:
-      GITHUB_TOKEN:
-        required: true
 
 concurrency:
   group: ci-release-sync-${{ github.ref }}

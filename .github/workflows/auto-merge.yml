@@ -7,10 +7,6 @@ name: Auto Merge PRs
 # Triggered by workflow call
 on:
   workflow_call:
-    # Define inputs and secrets here if needed for reuse
-    secrets:
-      GITHUB_TOKEN:
-        required: true
 
 permissions:
   pull-requests: write
