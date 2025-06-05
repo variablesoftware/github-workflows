@@ -30,7 +30,7 @@
 #
 # ---
 
-name: CI, Release, and Stage Sync
+name: CI, Semantic Release, and Stage Sync
 
 on:
   workflow_dispatch:
@@ -65,10 +65,13 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
+        name: Actions Checkout Code
       - uses: actions/setup-node@v4
+        name: Actions Set up Node.js
         with:
           node-version: "lts/*"
       - uses: pnpm/action-setup@v4
+        name: PNPM Setup
         with:
           version: latest
       - name: Debug pnpm environment
