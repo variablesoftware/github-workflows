@@ -1,3 +1,19 @@
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - stage
+      - feature/**
+      - bugfix/**
+      - fix/**
+      - hotfix/**
+      - release/**
+      - dependabot/**
+      - renovate/**
+      - chore/**
+      - test/**
+
 jobs:
   call-ci-release-sync:
     uses: variablesoftware/github-workflows/.github/workflows/ci-semantic-release-sync.yml@main
