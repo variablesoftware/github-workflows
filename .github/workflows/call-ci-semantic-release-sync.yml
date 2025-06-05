@@ -1,6 +1,6 @@
 jobs:
   call-ci-release-sync:
-    uses: variablesoftware/github-actions-setup-and-test/.github/workflows/ci-release-sync.yml@main
+    uses: variablesoftware/github-workflows/.github/workflows/ci-semantic-release-sync.yml@main
     with:
       # any workflow inputs
     secrets:

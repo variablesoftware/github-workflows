@@ -1,6 +1,6 @@
 jobs:
   call-auto-merge:
-    uses: variablesoftware/github-actions-setup-and-test/.github/workflows/auto-merge.yml@main
+    uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
     with:
       # any workflow inputs
     secrets:
