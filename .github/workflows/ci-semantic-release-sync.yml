@@ -45,7 +45,8 @@ jobs:
     name: Test & Build
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
       - uses: variablesoftware/github-actions-setup-and-test@main
       # - uses: ./.github/actions/setup-and-test
 
