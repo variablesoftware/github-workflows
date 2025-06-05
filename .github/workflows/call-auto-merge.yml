@@ -17,7 +17,6 @@ on:
 jobs:
   call-auto-merge:
     uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
-
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

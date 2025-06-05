@@ -8,6 +8,9 @@ name: Auto Merge PRs
 on:
   workflow_call:
     # Define inputs and secrets here if needed for reuse
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 
 permissions:
   pull-requests: write

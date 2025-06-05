@@ -34,9 +34,10 @@ name: CI, Release, and Stage Sync
 
 on:
   workflow_dispatch:
-
   workflow_call:
-    # Define inputs and secrets here if needed for reuse
+    secrets:
+      GITHUB_TOKEN:
+        required: true
 
 concurrency:
   group: ci-release-sync-${{ github.ref }}
