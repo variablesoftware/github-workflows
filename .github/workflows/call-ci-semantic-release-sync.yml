@@ -17,7 +17,6 @@ on:
 jobs:
   call-ci-release-sync:
     uses: variablesoftware/github-workflows/.github/workflows/ci-semantic-release-sync.yml@main
-    with:
-      # any workflow inputs
+
     secrets:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
