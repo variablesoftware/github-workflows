@@ -47,8 +47,6 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          repository: actions/checkout
       - name: Setup (CI & Build) and Test Package
         uses: variablesoftware/github-actions-setup-and-test@main
       # - uses: ./.github/actions/setup-and-test
