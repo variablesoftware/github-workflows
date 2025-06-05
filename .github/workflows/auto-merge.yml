@@ -22,8 +22,8 @@ jobs:
     if: github.event.pull_request.base.ref == 'stage' || github.event.pull_request.base.ref == 'main'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        name: Checkout Code
+      - name: Checkout Code
+        uses: actions/checkout@v4
       - name: Setup (CI & Build) and Test Package
         uses: variablesoftware/github-actions-setup-and-test@main
       # - uses: ./.github/actions/setup-and-test

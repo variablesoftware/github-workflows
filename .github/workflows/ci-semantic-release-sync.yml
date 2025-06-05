@@ -47,7 +47,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-      - uses: variablesoftware/github-actions-setup-and-test@main
+        with:
+          repository: actions/checkout
+      - name: Setup (CI & Build) and Test Package
+        uses: variablesoftware/github-actions-setup-and-test@main
       # - uses: ./.github/actions/setup-and-test
 
   release:
@@ -64,14 +67,14 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
-      - uses: actions/checkout@v4
-        name: Actions Checkout Code
-      - uses: actions/setup-node@v4
-        name: Actions Set up Node.js
+      - name: Actions Checkout Code
+        uses: actions/checkout@v4
+      - name: Actions Set up Node.js
+        uses: actions/setup-node@v4
         with:
           node-version: "lts/*"
-      - uses: pnpm/action-setup@v4
-        name: PNPM Setup
+      - name: PNPM Setup
+        uses: pnpm/action-setup@v4
         with:
           version: latest
       - name: Debug pnpm environment
