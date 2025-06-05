@@ -33,6 +33,21 @@
 name: CI, Release, and Stage Sync
 
 on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+      - stage
+      - feature/**
+      - bugfix/**
+      - fix/**
+      - hotfix/**
+      - release/**
+      - dependabot/**
+      - renovate/**
+      - chore/**
+      - test/**
+
   workflow_call:
     # Define inputs and secrets here if needed for reuse
 
