@@ -51,7 +51,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         # with:
         #   persist-credentials: false
         #   ref: ${{ github.event.inputs.checkoutRef }}
@@ -74,7 +74,7 @@ jobs:
       id-token: write
     steps:
       - name: Actions Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
       - name: Actions Set up Node.js
         uses: actions/setup-node@v4
         with:
