@@ -30,6 +30,10 @@
 #
 # ---
 
+env:
+  ACTIONS_STEP_DEBUG: true
+  ACTIONS_RUNNER_DEBUG: true
+  
 name: CI, Semantic Release, and Stage Sync
 
 on:

@@ -2,6 +2,10 @@
 # Maintainers: This workflow automates PR merges to 'stage' and 'main' after tests pass.
 # Uses pascalgn/automerge-action for robust, label-free automerge.
 
+env:
+  ACTIONS_STEP_DEBUG: true
+  ACTIONS_RUNNER_DEBUG: true
+  
 name: Auto Merge PRs
 
 # Triggered by workflow call
