@@ -7,7 +7,7 @@ runs:
   steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Setup Node.js
+    - name: Setup CI, Build and Test Package
       uses: actions/setup-node@v4
       with:
         node-version: "lts/*"
@@ -24,11 +24,32 @@ runs:
         which pnpm
         env | grep -E 'PNPM|NPM|NODE|PATH'
       shell: bash
-    - run: pnpm install --frozen-lockfile
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile
       shell: bash
-    # - run: pnpm run lint
-    # - run: pnpm run build
-    - run: pnpm vitest --coverage --reporter=verbose
+    - name: Run lint
+      run: |
+        if [ "$RUN_LINT" = "1" ]; then
+          pnpm run lint
+        else
+          echo "Skipping lint. Set RUN_LINT=1 to enable."
+        fi
+      shell: bash
+    - name: Run build
+      run: |
+        if [ "$RUN_BUILD" = "1" ]; then
+          pnpm run build
+        else
+          echo "Skipping build. Set RUN_BUILD=1 to enable."
+        fi
+      shell: bash
+    - name: Run tests
+      run: |
+        if [ "$RUN_TEST" = "0" ]; then
+          echo "Skipping tests. Set RUN_TEST=1 to enable."
+        else
+          pnpm vitest --coverage --reporter=verbose
+        fi
       env:
         SMOKE: 1
         DEBUG: 1
