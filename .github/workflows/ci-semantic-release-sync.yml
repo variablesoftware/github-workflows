@@ -40,6 +40,11 @@ name: CI, Semantic Release, and Stage Sync
 on:
   workflow_dispatch:
   workflow_call:
+    secrets:
+      NPM_TOKEN:
+        required: false
+      NODE_AUTH_TOKEN:
+        required: false
 
 concurrency:
   group: ci-release-sync-${{ github.ref }}
