@@ -20,6 +20,6 @@ on:
 
 jobs:
   call-ci-release-sync:
-    uses: variablesoftware/github-workflows/.github/workflows/ci-semantic-release-sync.yml@main
+    uses: variablesoftware/github-workflows/.github/workflows/ci-semantic-release-sync.yml@af4b71e7c65379fd7ce74592587fa8466ae7acfa
     # No secrets block needed for GITHUB_TOKEN
     # No additional changes required
