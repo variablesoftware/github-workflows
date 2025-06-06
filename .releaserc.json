@@ -22,7 +22,7 @@
           { "type": "chore", "release": "patch", "subject": "/^([\u231A-\uD83E\uDDFF]|:[^:]+:)/" }
         ],
         "parserOpts": {
-          "headerPattern": "^(?:([\u231A-\uD83E\uDDFF]|:[^:]+:)?\\s*)?([\\w-]+)(?:\\(([^)]+)\\))?:?\\s(.+)$"
+          "headerPattern": "^(?:[\\W_]+)?([\\w-]+)(?:\\(([^)]+)\\))?:?\\s(.+)$"
         }
       }
     ],
