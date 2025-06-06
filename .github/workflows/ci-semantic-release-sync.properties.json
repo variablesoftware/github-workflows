@@ -1,0 +1,54 @@
+{
+  "name": "CI, Release, and Stage Sync",
+  "description": "Combined CI/CD workflow for Cloudflare Worker monorepo using pnpm, git, and GitHub Actions. Handles test, release, and stage sync.",
+  "triggers": [
+    "push",
+    "pull_request"
+  ],
+  "branches": [
+    "$default-branch",
+    "main",
+    "stage",
+    "feature/**",
+    "bugfix/**",
+    "fix/**",
+    "hotfix/**",
+    "release/**",
+    "dependabot/**",
+    "renovate/**",
+    "chore/**",
+    "test/**"
+  ],
+  "jobs": [
+    {
+      "id": "test",
+      "name": "Test & Build",
+      "description": "Runs setup, install, and tests for all pushes and PRs. Base job for all others."
+    },
+    {
+      "id": "release",
+      "name": "Release (main only)",
+      "description": "Runs only on push to main after test passes. Publishes a release using semantic-release and pushes to npm if configured."
+    },
+    {
+      "id": "sync-stage-with-main",
+      "name": "Sync Stage with Main (after release)",
+      "description": "Runs only on push to main after a successful release. Attempts to fast-forward stage to main; if not possible, creates a PR from main to stage for manual review."
+    }
+  ],
+  "features": [
+    "DRY: All setup/test logic is in a composite action.",
+    "Safe: Stage promotion is fast-forward only or via PR, never force-pushed.",
+    "Robust: Handles all common branch types and automates the full CI/CD lifecycle.",
+    "Minimal Redundancy: Only one test run per event, and downstream jobs depend on its success."
+  ],
+  "categories": [
+    "ci",
+    "release",
+    "stage",
+    "sync",
+    "cloudflare",
+    "monorepo",
+    "github-actions"
+  ]
+}

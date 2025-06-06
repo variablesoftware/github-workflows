@@ -1,0 +1,103 @@
+#
+name: Setup and Test
+
+description: Common setup and test steps for all workflows
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: Initial Debug Show working directory and package.json
+      run: |
+        pwd && ls -al && cat package.json
+      shell: bash
+
+    - name: Checkout code
+      uses: actions/checkout@v4.2.2
+
+    - name: Post checkout Debug Show working directory and package.json
+      run: |
+        pwd && ls -al && cat package.json
+      shell: bash
+
+    # - name: PNPM
+      # run: corepack enable && corepack prepare pnpm@latest --activate
+      # run: corepack enable && corepack prepare pnpm@latest --activate
+      # shell: bash
+
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
+      with:
+        version: latest
+
+    - name: Debug after pnpm action setup, Show working directory and package.json
+      run: |
+        pwd && ls -al && cat package.json
+      shell: bash
+
+    - name: Setup CI, Build and Test Package
+      uses: actions/setup-node@v4
+      with:
+        node-version: "lts/*"
+        cache: "pnpm"
+
+    - name: Debug post node, Show working directory and package.json
+      run: |
+        pwd && ls -al && cat package.json
+      shell: bash
+
+    - name: Debug pnpm environment
+      run: |
+        echo "PATH: $PATH"
+        echo "NODE VERSION: $(node --version)"
+        echo "NPM VERSION: $(npm --version)"
+        echo "PNPM VERSION: $(pnpm --version)"
+        which pnpm
+        env | grep -E 'PNPM|NPM|NODE|PATH'
+      shell: bash
+
+    # - name: pnpm help
+    #   run: pnpm help
+    #   shell: bash
+
+    - name: Debug Show working directory and package.json
+      run: |
+        pwd && ls -al && cat package.json
+      shell: bash
+
+    - name: Install dependencies
+      run: pnpm install --frozen-lockfile --loglevel debug
+      shell: bash
+
+    - name: Debug post install, Show working directory and package.json
+      run: |
+        pwd && ls -al && cat package.json
+      shell: bash
+
+    - name: Run lint
+      run: |
+        if [ "$RUN_LINT" = "1" ]; then
+          pnpm run lint
+        else
+          echo "Skipping lint. Set RUN_LINT=1 to enable."
+        fi
+      shell: bash
+    - name: Run build
+      run: |
+        if [ "$RUN_BUILD" = "1" ]; then
+          pnpm run build
+        else
+          echo "Skipping build. Set RUN_BUILD=1 to enable."
+        fi
+      shell: bash
+    - name: Run tests
+      run: |
+        if [ "$RUN_TEST" = "1" ]; then
+          pnpm vitest --coverage --reporter=verbose
+        else
+          echo "Skipping tests. Set RUN_TEST=1 to enable."
+        fi
+      env:
+        SMOKE: 1
+        DEBUG: 1
+      shell: bash

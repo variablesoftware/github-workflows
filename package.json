@@ -1,0 +1,17 @@
+{
+  "name": "github-workflows",
+  "version": "0.0.0",
+  "description": "Reusable GitHub Actions workflows for the organization.",
+  "main": "README.md",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "release": "semantic-release"
+  },
+  "devDependencies": {
+    "semantic-release": "^24.2.5",
+    "@semantic-release/changelog": "^6.0.0",
+    "@semantic-release/git": "^10.0.0",
+    "@semantic-release/github": "^10.3.5"
+  }
+}
