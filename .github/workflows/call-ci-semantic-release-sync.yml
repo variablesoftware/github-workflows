@@ -25,3 +25,7 @@ jobs:
     # uses: variablesoftware/github-workflows/.github/workflows/ci-semantic-release-sync.yml@38038641148ab8eaa7c9be80d9041a6c8c80641e
     # No secrets block needed for GITHUB_TOKEN
     # No additional changes required
+    env:
+      RUN_TEST: 0
+      RUN_BUILD: 0
+      
