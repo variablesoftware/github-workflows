@@ -20,7 +20,7 @@ on:
 
 jobs:
   call-auto-merge:
-    uses: .github/workflows/auto-merge.yml
+    uses: ./.github/workflows/auto-merge.yml
     # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
     # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@38038641148ab8eaa7c9be80d9041a6c8c80641e
     # secrets:
