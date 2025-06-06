@@ -45,10 +45,10 @@ runs:
       shell: bash
     - name: Run tests
       run: |
-        if [ "$RUN_TEST" = "0" ]; then
-          echo "Skipping tests. Set RUN_TEST=1 to enable."
-        else
+        if [ "$RUN_TEST" = "1" ]; then
           pnpm vitest --coverage --reporter=verbose
+        else
+          echo "Skipping tests. Set RUN_TEST=1 to enable."
         fi
       env:
         SMOKE: 1
