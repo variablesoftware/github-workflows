@@ -2,6 +2,7 @@
 # Maintainers: This workflow automates PR merges to 'stage' and 'main' after tests pass.
 # Uses pascalgn/automerge-action for robust, label-free automerge.
 
+# env
 env:
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
@@ -34,7 +35,7 @@ jobs:
       - name: Automerge PR if CI passes
         uses: pascalgn/automerge-action@v0.16.4
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_METHOD: squash
           MERGE_LABELS: ''
           MERGE_FORKS: 'true'
