@@ -30,8 +30,8 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Setup (CI & Build) and Test Package
-        uses: variablesoftware/github-actions-setup-and-test@main
-      # - uses: ./.github/actions/setup-and-test
+        # uses: variablesoftware/github-actions-setup-and-test@main
+        uses: ./.github/actions/setup-and-test
       - name: Automerge PR if CI passes
         uses: pascalgn/automerge-action@v0.16.4
         env:

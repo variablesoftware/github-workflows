@@ -56,8 +56,8 @@ jobs:
         #   persist-credentials: false
         #   ref: ${{ github.event.inputs.checkoutRef }}
       - name: Setup (CI & Build) and Test Package
-        uses: variablesoftware/github-actions-setup-and-test@main
-      # - uses: ./.github/actions/setup-and-test
+        # uses: variablesoftware/github-actions-setup-and-test@main
+        uses: ./.github/actions/setup-and-test
 
   release:
     name: Release (main only)
