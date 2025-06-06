@@ -1,7 +1,11 @@
 env:
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
+  RUN_TEST: 0
+  RUN_BUILD: 0
+  RUN_LINT: 0
   
+
 on:
   workflow_dispatch:
   push:
