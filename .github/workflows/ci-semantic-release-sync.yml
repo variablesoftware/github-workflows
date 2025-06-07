@@ -34,9 +34,9 @@
 env:
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
-  RUN_TEST: ${{ inputs.RUN_TEST }}
-  RUN_BUILD: ${{ inputs.RUN_BUILD }}
-  RUN_LINT: ${{ inputs.RUN_LINT }}
+  # RUN_TEST: ${{ inputs.RUN_TEST }}
+  # RUN_BUILD: ${{ inputs.RUN_BUILD }}
+  # RUN_LINT: ${{ inputs.RUN_LINT }}
 
 name: CI, Semantic Release, and Stage Sync
 
@@ -48,12 +48,20 @@ on:
         required: false
       NODE_AUTH_TOKEN:
         required: false
+    inputs:
       RUN_TEST:
         required: false
+        type: string
       RUN_BUILD:
         required: false
+        type: string
       RUN_LINT:
         required: false
+        type: string
+      RUN_RELEASE:
+        required: false
+        type: string
+        default: '1'
 
 concurrency:
   group: ci-release-sync-${{ github.ref }}
