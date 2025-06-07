@@ -40,11 +40,11 @@ name: CI, Semantic Release, and Stage Sync
 on:
   workflow_dispatch:
   workflow_call:
-    # secrets:
-    #   NPM_TOKEN:
-    #     required: false
-    #   NODE_AUTH_TOKEN:
-    #     required: false
+    secrets:
+      NPM_TOKEN:
+        required: false
+      NODE_AUTH_TOKEN:
+        required: false
 
 concurrency:
   group: ci-release-sync-${{ github.ref }}
@@ -104,9 +104,13 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SCOPE: ${{ secrets.scope }}
-          NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
-          NPM_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
           HUSKY: 0
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+        # secrets:
+        #   NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
+        #   NPM_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
+          
 
   # sync-stage-with-main:
   #   name: Sync Stage with Main (after release)
