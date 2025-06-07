@@ -34,7 +34,10 @@
 env:
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
-  
+  RUN_TEST: ${{ inputs.RUN_TEST }}
+  RUN_BUILD: ${{ inputs.RUN_BUILD }}
+  RUN_LINT: ${{ inputs.RUN_LINT }}
+
 name: CI, Semantic Release, and Stage Sync
 
 on:
@@ -44,6 +47,12 @@ on:
       NPM_TOKEN:
         required: false
       NODE_AUTH_TOKEN:
+        required: false
+      RUN_TEST:
+        required: false
+      RUN_BUILD:
+        required: false
+      RUN_LINT:
         required: false
 
 concurrency:
@@ -60,12 +69,13 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        # with:
-        #   persist-credentials: false
-        #   ref: ${{ github.event.inputs.checkoutRef }}
       - name: Setup (CI & Build) and Test Package
         uses: variablesoftware/github-actions-node-setup-and-test@main
         # uses: ./.github/actions/setup-and-test
+        env:
+          RUN_TEST: ${{ inputs.RUN_TEST }}
+          RUN_BUILD: ${{ inputs.RUN_BUILD }}
+          RUN_LINT: ${{ inputs.RUN_LINT }}
 
   release:
     name: Release (main only)
@@ -106,11 +116,9 @@ jobs:
           SCOPE: ${{ secrets.scope }}
           HUSKY: 0
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-        # secrets:
-        #   NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
-        #   NPM_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
-          
+          RUN_TEST: ${{ inputs.RUN_TEST }}
+          RUN_BUILD: ${{ inputs.RUN_BUILD }}
+          RUN_LINT: ${{ inputs.RUN_LINT }}
 
   # sync-stage-with-main:
   #   name: Sync Stage with Main (after release)
