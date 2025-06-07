@@ -1,6 +1,6 @@
 {
   "name": "github-workflows",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Reusable GitHub Actions workflows for the organization.",
   "main": "README.md",
   "license": "MIT",
