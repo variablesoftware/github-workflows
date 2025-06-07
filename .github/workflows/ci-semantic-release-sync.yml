@@ -99,6 +99,12 @@ jobs:
       pull-requests: write
       id-token: write
     steps:
+      - name: Debug workflow inputs
+        run: |
+          echo "RUN_TEST: ${{ inputs.RUN_TEST }}"
+          echo "RUN_BUILD: ${{ inputs.RUN_BUILD }}"
+          echo "RUN_LINT: ${{ inputs.RUN_LINT }}"
+          echo "RUN_RELEASE: ${{ inputs.RUN_RELEASE }}"
       - name: Actions Checkout Code
         uses: actions/checkout@v4
       - name: Actions Set up Node.js
