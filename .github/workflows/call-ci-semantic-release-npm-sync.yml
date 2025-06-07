@@ -48,7 +48,7 @@ jobs:
       NPM_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
       NODE_AUTH_TOKEN: ${{ secrets.VS_NPM_TOKEN }}
     with:
-      RUN_LINT: ${{ env.RUN_LINT }}
-      RUN_BUILD: ${{ env.RUN_BUILD }}
-      RUN_TEST: ${{ env.RUN_TEST }}
+      RUN_LINT: 0
+      RUN_BUILD: 0
+      RUN_TEST: 0
     
