@@ -72,7 +72,7 @@ jobs:
     name: Test & Build
     runs-on: ubuntu-latest
     concurrency:
-      group: test
+      group: test-${{ github.ref }}
       cancel-in-progress: true
     steps:
       - name: Checkout code
@@ -91,7 +91,7 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     concurrency:
-      group: release
+      group: release-${{ github.ref }}
       cancel-in-progress: true
     permissions:
       contents: write

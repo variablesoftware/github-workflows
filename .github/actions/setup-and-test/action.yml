@@ -30,10 +30,10 @@ runs:
       with:
         version: latest
 
-    - name: Debug after pnpm action setup, Show working directory and package.json
-      run: |
-        pwd && ls -al && cat package.json
-      shell: bash
+    # - name: Debug after pnpm action setup, Show working directory and package.json
+    #   run: |
+    #     pwd && ls -al && cat package.json
+    #   shell: bash
 
     - name: Setup CI, Build and Test Package
       uses: actions/setup-node@v4
@@ -41,10 +41,10 @@ runs:
         node-version: "lts/*"
         cache: "pnpm"
 
-    - name: Debug post node, Show working directory and package.json
-      run: |
-        pwd && ls -al && cat package.json
-      shell: bash
+    # - name: Debug post node, Show working directory and package.json
+    #   run: |
+    #     pwd && ls -al && cat package.json
+    #   shell: bash
 
     - name: Debug pnpm environment
       run: |
@@ -60,10 +60,10 @@ runs:
     #   run: pnpm help
     #   shell: bash
 
-    - name: Debug Show working directory and package.json
-      run: |
-        pwd && ls -al && cat package.json
-      shell: bash
+    # - name: Debug Show working directory and package.json
+    #   run: |
+    #     pwd && ls -al && cat package.json
+    #   shell: bash
 
     - name: Install dependencies
       run: pnpm install --frozen-lockfile --loglevel debug
