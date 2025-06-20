@@ -59,18 +59,20 @@ jobs:
         run: |
           NEED_CLEANUP=false
           REASON=""
-          echo "[cleanup-branch] Commit count: ${{ steps.count.outputs.commit_count }} (threshold: ${{ inputs.commit_threshold }})"
-          echo "[cleanup-branch] Days since last commit: ${{ steps.lastdate.outputs.age_days }} (threshold: ${{ inputs.days_stale }})"
-          if [ "${{ steps.count.outputs.commit_count }}" -gt "${{ inputs.commit_threshold }}" ]; then
+          COMMIT_COUNT="${{ steps.count.outputs.commit_count }}"
+          DAYS_STALE="${{ steps.lastdate.outputs.age_days }}"
+          echo "[cleanup-branch] Commit count: $COMMIT_COUNT (threshold: ${{ inputs.commit_threshold }})"
+          echo "[cleanup-branch] Days since last commit: $DAYS_STALE (threshold: ${{ inputs.days_stale }})"
+          if [ "$COMMIT_COUNT" -gt "${{ inputs.commit_threshold }}" ]; then
             NEED_CLEANUP=true
-            REASON="Commit count (${ { steps.count.outputs.commit_count } }) exceeds threshold (${ { inputs.commit_threshold } })"
+            REASON="Commit count ($COMMIT_COUNT) exceeds threshold (${{ inputs.commit_threshold }})"
           fi
-          if [ "${{ steps.lastdate.outputs.age_days }}" -gt "${{ inputs.days_stale }}" ]; then
+          if [ "$DAYS_STALE" -gt "${{ inputs.days_stale }}" ]; then
             NEED_CLEANUP=true
             if [ -n "$REASON" ]; then
               REASON="$REASON; "
             fi
-            REASON+="Branch is stale (${ { steps.lastdate.outputs.age_days } } days > ${ { inputs.days_stale } })"
+            REASON+="Branch is stale ($DAYS_STALE days > ${{ inputs.days_stale }})"
           fi
           if [ "$NEED_CLEANUP" = true ]; then
             echo "[cleanup-branch] Cleanup needed: true. Reason: $REASON"
