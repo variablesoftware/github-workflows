@@ -9,6 +9,10 @@ on:
         default: 3
         type: number
 
+concurrency:
+  group: prune-releases-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
 jobs:
   prune:
     runs-on: ubuntu-latest

@@ -24,6 +24,10 @@ on:
         default: true
         type: boolean
 
+concurrency:
+  group: cleanup-branch-${{ github.ref }}-${{ github.event_name }}
+  cancel-in-progress: true
+
 jobs:
   check-and-suggest:
     runs-on: ubuntu-latest
