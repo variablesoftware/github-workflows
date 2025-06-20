@@ -1,0 +1,30 @@
+name: Prune Old Releases
+
+on:
+  workflow_call:
+    inputs:
+      releases_to_keep:
+        description: 'Number of latest releases to keep'
+        required: false
+        default: 3
+        type: number
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up GitHub CLI
+        uses: cli/cli-action@v2
+
+      - name: Delete old releases
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          KEEP=${{ inputs.releases_to_keep }}
+          REPO="${{ github.repository }}"
+          gh release list --repo "$REPO" --limit 100 | awk '{print $1}' | tail -n +$((KEEP+1)) | xargs -r -I {} gh release delete {} --repo "$REPO" --yes
