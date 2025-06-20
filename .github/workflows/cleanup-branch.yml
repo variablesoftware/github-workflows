@@ -58,13 +58,27 @@ jobs:
         id: need_cleanup
         run: |
           NEED_CLEANUP=false
+          REASON=""
+          echo "[cleanup-branch] Commit count: ${{ steps.count.outputs.commit_count }} (threshold: ${{ inputs.commit_threshold }})"
+          echo "[cleanup-branch] Days since last commit: ${{ steps.lastdate.outputs.age_days }} (threshold: ${{ inputs.days_stale }})"
           if [ "${{ steps.count.outputs.commit_count }}" -gt "${{ inputs.commit_threshold }}" ]; then
             NEED_CLEANUP=true
+            REASON="Commit count (${ { steps.count.outputs.commit_count } }) exceeds threshold (${ { inputs.commit_threshold } })"
           fi
           if [ "${{ steps.lastdate.outputs.age_days }}" -gt "${{ inputs.days_stale }}" ]; then
             NEED_CLEANUP=true
+            if [ -n "$REASON" ]; then
+              REASON="$REASON; "
+            fi
+            REASON+="Branch is stale (${ { steps.lastdate.outputs.age_days } } days > ${ { inputs.days_stale } })"
+          fi
+          if [ "$NEED_CLEANUP" = true ]; then
+            echo "[cleanup-branch] Cleanup needed: true. Reason: $REASON"
+          else
+            echo "[cleanup-branch] Cleanup needed: false."
           fi
           echo "need_cleanup=$NEED_CLEANUP" >> $GITHUB_OUTPUT
+          echo "cleanup_reason=$REASON" >> $GITHUB_OUTPUT
 
       - name: Squash and push cleaned branch
         if: steps.need_cleanup.outputs.need_cleanup == 'true' && inputs.dry_run == false
@@ -101,3 +115,4 @@ jobs:
           echo "Commit count: ${{ steps.count.outputs.commit_count }}"
           echo "Days since last commit: ${{ steps.lastdate.outputs.age_days }}"
           echo "Cleanup needed: ${{ steps.need_cleanup.outputs.need_cleanup }}"
+          echo "Reason: ${{ steps.need_cleanup.outputs.cleanup_reason }}"
