@@ -1,3 +1,5 @@
+# [1.1.0](https://github.com/variablesoftware/github-workflows/compare/v1.0.11...v1.1.0) (2025-06-20)
+
 ## [1.0.11](https://github.com/variablesoftware/github-workflows/compare/v1.0.10...v1.0.11) (2025-06-09)
 
 ## [1.0.10](https://github.com/variablesoftware/github-workflows/compare/v1.0.9...v1.0.10) (2025-06-07)
