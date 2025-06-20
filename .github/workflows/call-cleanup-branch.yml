@@ -1,3 +1,5 @@
+name: Call Cleanup Branch
+
 # This workflow demonstrates how to call the reusable cleanup-branch workflow
 
 on:

@@ -38,6 +38,7 @@ on:
 
 jobs:
   call-auto-merge:
+    name: Call Auto Merge
     # uses: ./.github/workflows/auto-merge.yml
     uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
     # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@v1
@@ -45,4 +46,4 @@ jobs:
     secrets: inherit
     #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      
+
