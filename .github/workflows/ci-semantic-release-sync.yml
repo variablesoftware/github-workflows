@@ -64,7 +64,7 @@ on:
         default: '1'
 
 concurrency:
-  group: ci-release-sync-${{ github.ref }}
+  group: ci-release-sync-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 jobs:
@@ -123,8 +123,32 @@ jobs:
           echo "PNPM VERSION: $(pnpm --version)"
           which pnpm
           env | grep -E 'PNPM|NPM|NODE|PATH'
-      - run: pnpm install --frozen-lockfile
-      - run: |
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Debug GitHub Context
+        run: |
+          echo "GITHUB_CONTEXT VARIABLES:"
+          echo "  github.ref: ${{ github.ref }}"
+          echo "  github.ref_name: ${{ github.ref_name }}"
+          echo "  github.repository: ${{ github.repository }}"
+          echo "  github.repository_owner: ${{ github.repository_owner }}"
+          echo "  github.event_name: ${{ github.event_name }}"
+          echo "  github.sha: ${{ github.sha }}"
+          echo "  github.actor: ${{ github.actor }}"
+          echo "  github.workflow: ${{ github.workflow }}"
+          echo "  github.run_id: ${{ github.run_id }}"
+          echo "  github.run_number: ${{ github.run_number }}"
+          echo "  github.head_ref: ${{ github.head_ref }}"
+          echo "  github.base_ref: ${{ github.base_ref }}"
+          echo "  github.job: ${{ github.job }}"
+          echo "  github.workspace: ${{ github.workspace }}"
+          echo "  github.action: ${{ github.action }}"
+          echo "  github.triggering_actor: ${{ github.triggering_actor }}"
+          echo "  github.server_url: ${{ github.server_url }}"
+          echo "  github.api_url: ${{ github.api_url }}"
+          echo "  github.graphql_url: ${{ github.graphql_url }}"
+      - name: Run Semantic Release or Skip
+        run: |
           if [ "${{ inputs.RUN_RELEASE }}" = "1" ]; then
             pnpm semantic-release
           else

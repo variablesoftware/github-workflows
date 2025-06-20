@@ -2,34 +2,8 @@ name: Call Prune Releases
 
 on:
   workflow_dispatch:
-
-  push:
-    branches:
-      - main
-      - stage
-      - 'feature/**'
-      - 'bugfix/**'
-      - 'fix/**'
-      - 'hotfix/**'
-      - 'release/**'
-      - 'dependabot/**'
-      - 'renovate/**'
-      - 'chore/**'
-      - 'test/**'
-  pull_request:
-    types: [labeled, synchronize, opened, reopened, ready_for_review]
-    branches:
-      - main
-      - stage
-      - 'feature/**'
-      - 'bugfix/**'
-      - 'fix/**'
-      - 'hotfix/**'
-      - 'release/**'
-      - 'dependabot/**'
-      - 'renovate/**'
-      - 'chore/**'
-      - 'test/**'
+  release:
+    types: [published, created]
 
 jobs:
   prune_releases:
