@@ -35,9 +35,9 @@ on:
 jobs:
   cleanup_branch:
     uses: variablesoftware/github-workflows/.github/workflows/cleanup-branch.yml@main
+    secrets: inherit
     with:
       commit_threshold: 10   # Optional, default is 10
       days_stale: 13         # Optional, default is 30
       base_branch: main     # Optional, default is 'main'
       dry_run: false        # Set to true for testing, false to actually open PRs
-    secrets: inherit

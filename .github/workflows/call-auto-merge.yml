@@ -1,3 +1,5 @@
+name: Call Auto Merge
+
 env:
   ACTIONS_STEP_DEBUG: true
   ACTIONS_RUNNER_DEBUG: true
@@ -39,11 +41,7 @@ on:
 jobs:
   call-auto-merge:
     name: Call Auto Merge
-    # uses: ./.github/workflows/auto-merge.yml
     uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
-    # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@v1
-    # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@38038641148ab8eaa7c9be80d9041a6c8c80641e
     secrets: inherit
-    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
 
