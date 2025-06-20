@@ -64,7 +64,7 @@ on:
         default: '1'
 
 concurrency:
-  group: ci-release-sync-${{ github.ref }}-${{ github.event_name }}
+  group: ci-release-sync-${{ github.ref }}-${{ github.event_name }}-${{ github.run_id }}
   cancel-in-progress: true
 
 jobs:
