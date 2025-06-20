@@ -36,7 +36,6 @@ jobs:
       - name: Automerge PR if CI passes
         uses: pascalgn/automerge-action@v0.16.4
         env:
-          # GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           MERGE_METHOD: squash
           MERGE_LABELS: ''
           MERGE_FORKS: 'true'
