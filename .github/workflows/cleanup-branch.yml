@@ -95,7 +95,7 @@ jobs:
 
       - name: Create PR for cleaned branch
         if: steps.need_cleanup.outputs.need_cleanup == 'true' && inputs.dry_run == false
-        uses: peter-evans/create-pull-request@v6
+        uses: peter-evans/create-pull-request@v7
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: cleaned-${{ steps.branch.outputs.branch_name }}
