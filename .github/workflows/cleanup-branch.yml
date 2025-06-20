@@ -1,0 +1,99 @@
+name: Suggest Cleaned-up Branch
+
+on:
+  workflow_call:
+    inputs:
+      commit_threshold:
+        description: 'Number of commits after which to suggest cleanup'
+        required: false
+        default: 10
+        type: number
+      days_stale:
+        description: 'Number of days since last commit to consider branch stale'
+        required: false
+        default: 30
+        type: number
+      base_branch:
+        description: 'Base branch for cleanup (default: main)'
+        required: false
+        default: 'main'
+        type: string
+      dry_run:
+        description: 'If true, only report, do not open PR'
+        required: false
+        default: true
+        type: boolean
+
+jobs:
+  check-and-suggest:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get current branch name
+        id: branch
+        run: echo "branch_name=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
+      - name: Count commits on branch
+        id: count
+        run: |
+          COMMITS=$(git rev-list --count origin/${{ steps.branch.outputs.branch_name }})
+          echo "commit_count=$COMMITS" >> $GITHUB_OUTPUT
+
+      - name: Get last commit date
+        id: lastdate
+        run: |
+          LAST_DATE=$(git log -1 --format=%ct origin/${{ steps.branch.outputs.branch_name }})
+          NOW=$(date +%s)
+          AGE_DAYS=$(( (NOW - LAST_DATE) / 86400 ))
+          echo "age_days=$AGE_DAYS" >> $GITHUB_OUTPUT
+
+      - name: Decide if cleanup needed
+        id: need_cleanup
+        run: |
+          NEED_CLEANUP=false
+          if [ "${{ steps.count.outputs.commit_count }}" -gt "${{ inputs.commit_threshold }}" ]; then
+            NEED_CLEANUP=true
+          fi
+          if [ "${{ steps.lastdate.outputs.age_days }}" -gt "${{ inputs.days_stale }}" ]; then
+            NEED_CLEANUP=true
+          fi
+          echo "need_cleanup=$NEED_CLEANUP" >> $GITHUB_OUTPUT
+
+      - name: Squash and push cleaned branch
+        if: steps.need_cleanup.outputs.need_cleanup == 'true' && inputs.dry_run == false
+        run: |
+          git checkout -b cleaned-${{ steps.branch.outputs.branch_name }} origin/${{ steps.branch.outputs.branch_name }}
+          git reset --soft origin/${{ inputs.base_branch }}
+          git commit -m "Squashed commit for branch cleanup"
+          git push origin cleaned-${{ steps.branch.outputs.branch_name }}
+
+      - name: Create PR for cleaned branch
+        if: steps.need_cleanup.outputs.need_cleanup == 'true' && inputs.dry_run == false
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: cleaned-${{ steps.branch.outputs.branch_name }}
+          base: ${{ steps.branch.outputs.branch_name }}
+          title: "Suggest: Cleaned-up branch (squashed commits)"
+          body: |
+            This PR was automatically created to suggest a cleaned-up (squashed) version of `${{ steps.branch.outputs.branch_name }}`.
+            - Original commit count: ${{ steps.count.outputs.commit_count }}
+            - Days since last commit: ${{ steps.lastdate.outputs.age_days }}
+            - Base branch: ${{ inputs.base_branch }}
+            
+            Please review and merge if you want to clean up the branch history.
+
+      - name: Report (dry run or no cleanup needed)
+        if: steps.need_cleanup.outputs.need_cleanup == 'false' || inputs.dry_run == true
+        run: |
+          echo "No cleanup needed or dry run enabled."
+          echo "Commit count: ${{ steps.count.outputs.commit_count }}"
+          echo "Days since last commit: ${{ steps.lastdate.outputs.age_days }}"
+          echo "Cleanup needed: ${{ steps.need_cleanup.outputs.need_cleanup }}"

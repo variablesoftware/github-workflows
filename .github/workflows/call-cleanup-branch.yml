@@ -1,13 +1,7 @@
-env:
-  ACTIONS_STEP_DEBUG: true
-  ACTIONS_RUNNER_DEBUG: true
-  RUN_TEST: 0
-  RUN_BUILD: 0
-  RUN_LINT: 0
+# This workflow demonstrates how to call the reusable cleanup-branch workflow
 
 on:
   workflow_dispatch:
-
   push:
     branches:
       - main
@@ -37,12 +31,11 @@ on:
       - 'test/**'
 
 jobs:
-  call-auto-merge:
-    # uses: ./.github/workflows/auto-merge.yml
-    uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@main
-    # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@v1
-    # uses: variablesoftware/github-workflows/.github/workflows/auto-merge.yml@38038641148ab8eaa7c9be80d9041a6c8c80641e
+  cleanup_branch:
+    uses: variablesoftware/github-workflows/.github/workflows/cleanup-branch.yml@main
+    with:
+      commit_threshold: 10   # Optional, default is 10
+      days_stale: 30        # Optional, default is 30
+      base_branch: main     # Optional, default is 'main'
+      dry_run: false        # Set to true for testing, false to actually open PRs
     secrets: inherit
-    #   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      
