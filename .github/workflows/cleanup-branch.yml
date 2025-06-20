@@ -69,6 +69,8 @@ jobs:
       - name: Squash and push cleaned branch
         if: steps.need_cleanup.outputs.need_cleanup == 'true' && inputs.dry_run == false
         run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b cleaned-${{ steps.branch.outputs.branch_name }} origin/${{ steps.branch.outputs.branch_name }}
           git reset --soft origin/${{ inputs.base_branch }}
           git commit -m "Squashed commit for branch cleanup"
@@ -81,6 +83,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: cleaned-${{ steps.branch.outputs.branch_name }}
           base: ${{ steps.branch.outputs.branch_name }}
+          committer: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+          author: "github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
           title: "Suggest: Cleaned-up branch (squashed commits)"
           body: |
             This PR was automatically created to suggest a cleaned-up (squashed) version of `${{ steps.branch.outputs.branch_name }}`.
