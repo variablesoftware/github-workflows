@@ -85,12 +85,13 @@ jobs:
       - name: Squash and push cleaned branch
         if: steps.need_cleanup.outputs.need_cleanup == 'true' && inputs.dry_run == false
         run: |
+          set -e
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b cleaned-${{ steps.branch.outputs.branch_name }} origin/${{ steps.branch.outputs.branch_name }}
           git reset --soft origin/${{ inputs.base_branch }}
-          git commit -m "Squashed commit for branch cleanup"
-          git push origin cleaned-${{ steps.branch.outputs.branch_name }}
+          git commit -m "Squashed commit for branch cleanup" --allow-empty
+          git push -f origin cleaned-${{ steps.branch.outputs.branch_name }}
 
       - name: Create PR for cleaned branch
         if: steps.need_cleanup.outputs.need_cleanup == 'true' && inputs.dry_run == false
