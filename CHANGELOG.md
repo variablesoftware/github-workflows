@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/variablesoftware/github-workflows/compare/v1.2.11...v1.3.0) (2025-07-18)
+
+
+### Features
+
+* **workflow:** enhance call-prune-releases workflow with push and pull request triggers ([fd63f11](https://github.com/variablesoftware/github-workflows/commit/fd63f11d1956a9e39596e4f9c2018bdb13e16f4a))
+
 ## [1.2.11](https://github.com/variablesoftware/github-workflows/compare/v1.2.10...v1.2.11) (2025-07-18)
 
 ## [1.2.10](https://github.com/variablesoftware/github-workflows/compare/v1.2.9...v1.2.10) (2025-07-18)
