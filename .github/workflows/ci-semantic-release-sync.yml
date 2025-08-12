@@ -76,7 +76,7 @@ jobs:
       cancel-in-progress: true
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup (CI & Build) and Test Package
         uses: variablesoftware/github-actions-node-setup-and-test@main
         # uses: ./.github/actions/setup-and-test
@@ -106,7 +106,7 @@ jobs:
           echo "RUN_LINT: ${{ inputs.RUN_LINT }}"
           echo "RUN_RELEASE: ${{ inputs.RUN_RELEASE }}"
       - name: Actions Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Actions Set up Node.js
         uses: actions/setup-node@v4
         with:
