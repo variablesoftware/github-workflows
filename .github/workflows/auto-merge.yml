@@ -29,7 +29,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
       - name: Setup (CI & Build) and Test Package
         uses: variablesoftware/github-actions-node-setup-and-test@main
         # uses: ./.github/actions/setup-and-test
